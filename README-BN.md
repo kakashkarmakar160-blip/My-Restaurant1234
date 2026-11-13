@@ -1,56 +1,20 @@
-# My Hotel – Restaurant Ordering Website
+# My Hotel — Restaurant Ordering Website v2
 
-এটি একটি responsive restaurant ordering website starter project। ZIP extract করে `index.html` খুললেই **Local Preview Mode**-এ মেনু, cart, discount calculation, table selection, order, admin demo, menu editing, Today's Food, order status, receipt download এবং CSV export পরীক্ষা করা যাবে।
+## Customer flow
+Welcome screen → How to Order instructions → Choose Table → Today's Menu → Review Bill → Place Order → Order confirmation.
+Customer name, phone number, email and account/login are NOT required. Payment is Cash at Counter.
+QR example: `https://your-site.example/?table=1` preselects table ID 1 and shows the guide first.
 
-## ফাইল
-- `index.html` – Customer page, cart, admin panel
-- `styles.css` – Responsive design ও style
-- `app.js` – Menu, cart, order, receipt, local preview logic
-- `supabase-schema.sql` – Supabase database schema ও secure order RPC
-- `README-BN.md` – এই নির্দেশিকা
+## Admin
+Admin login asks for PASSWORD ONLY (no email or username). Demo password: `1234`.
+Change it under Admin → Website Settings → Change admin password.
+Admin panels: Orders/status updates, Menu & Categories, Today's Food visibility, Tables, CSV order export, website identity/design settings.
+Hotel name, tagline, welcome text, logo text, phone, address, accent colour and font size are editable.
 
-## Local Preview চালানো
-1. ZIP extract করুন।
-2. `index.html` Chrome-এ খুলুন।
-3. Customer হিসেবে খাবার Cart-এ যোগ করে টেবিল বেছে Order দিন।
-4. Admin বোতামে চাপুন।
-5. **Open demo admin (local preview only)** চাপলে Admin Panel খুলবে।
-6. Menu, Today's food, Tables, Reports ও Settings পরীক্ষা করুন।
+## Run
+Extract ZIP and open `index.html` in Chrome. Browser localStorage stores demo data.
 
-> Local Preview-এর ডেটা শুধু ওই browser/device-এর localStorage-এ থাকে। অন্য ফোনে নিজে থেকে sync হবে না। এটি production restaurant service নয়।
+## Important
+This is a LOCAL PREVIEW starter, not a production multi-device system. Orders/settings/password are saved only in the current browser. The included `supabase-schema.sql` is a database foundation only; this frontend is not connected to Supabase, realtime or secure server-side authentication/order processing. A public launch requires secure server-side order creation, admin authorization, realtime updates, HTTPS hosting and tested bill generation. Do not use this browser-only password gate for real public admin security. Never place Supabase service_role keys in frontend code.
 
-## Supabase-এ shared live data সেটআপ
-1. Supabase-এ একটি project তৈরি করুন।
-2. SQL Editor-এ `supabase-schema.sql`-এর সম্পূর্ণ SQL চালান।
-3. Authentication > Users থেকে মালিকের account তৈরি করুন।
-4. ওই user-এর UUID কপি করুন।
-5. SQL Editor-এ চালান (UUID বদলে):
-   ```sql
-   insert into public.hotel_admins(user_id) values ('YOUR-ADMIN-USER-UUID');
-   ```
-6. `food_categories`, `food_items` এবং `restaurant_tables`-এ প্রাথমিক ডেটা যোগ করুন।
-7. `app.js`-এর একদম নিচে Supabase URL ও anon key বসিয়ে client uncomment করুন:
-   ```js
-   window.supabaseClient = window.supabase.createClient(
-     'https://YOUR_PROJECT.supabase.co',
-     'YOUR_SUPABASE_ANON_KEY'
-   );
-   ```
-8. Supabase-এর `service_role` key কখনো browser code-এ দেবেন না।
-9. Production deployment-এর আগে app.js-এ Supabase database read/write ও realtime integration সম্পূর্ণভাবে wire করতে হবে। এই ZIP-এর UI Local Preview-এ সম্পূর্ণ interactive; SQL schema backend foundation দেয়, কিন্তু frontend-এর সব operation এখনো Supabase-এ connected নয়।
-
-## Admin password সম্পর্কে
-আগের কথোপকথনে উল্লেখ করা পাসওয়ার্ড frontend-এ hard-code করা হয়নি। Production-এ Supabase Auth ব্যবহার করুন এবং শক্তিশালী আলাদা password দিন। Demo Admin login কেবল local preview-র জন্য; এটি security boundary নয়।
-
-## গুরুত্বপূর্ণ production checklist
-- Supabase Auth + `hotel_admins` admin restriction যাচাই।
-- Customer order submission-কে `place_restaurant_order` RPC-তে connect করা।
-- Admin menu/settings/order CRUD-কে Supabase API-তে connect করা।
-- Supabase Realtime subscription বসানো।
-- Receipt-এ হোটেলের আসল তথ্য, tax/GST ও invoice requirements যাচাই।
-- Public hosting-এ HTTPS চালু।
-- QR Code তৈরি করে প্রতিটি টেবিলে লাগানো।
-- নিয়মিত database backup রাখা।
-
-## Tax / GST
-এই starter-এ tax/GST স্বয়ংক্রিয়ভাবে যোগ করা হয় না। আপনার ব্যবসার ক্ষেত্রে প্রযোজ্য tax rate ও invoice format নিশ্চিত করে তারপর সেটি configure করবেন।
+Bill buttons open the browser print dialog; choose Save as PDF. The image/PNG button opens the same print view; use a screenshot for PNG. Proper one-click PNG/PDF generation should be added in a production-connected build. GST/tax is not included and must be configured if applicable.
