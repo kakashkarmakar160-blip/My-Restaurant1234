@@ -8,7 +8,7 @@ QR example: `https://your-site.example/?table=1` preselects table ID 1 and shows
 ## Admin
 Admin login asks for PASSWORD ONLY (no email or username). Demo password: `1234`.
 Change it under Admin → Website Settings → Change admin password.
-Admin panels: Orders/status updates, Menu & Categories, Today's Food visibility, Tables, CSV order export, website identity/design settings.
+Admin panels: Orders/status updates, Menu & Categories, Today's Food visibility, Tables, CSV order export, website identity/design settings. নতুন খাবার যোগ করতে এখন ফোন/কম্পিউটার থেকে ছবি আপলোড করা বাধ্যতামূলক; URL দেওয়ার প্রয়োজন নেই।
 Hotel name, tagline, welcome text, logo text, phone, address, accent colour and font size are editable.
 
 ## Run
@@ -22,3 +22,7 @@ Bill buttons open the browser print dialog; choose Save as PDF. The image/PNG bu
 
 ## নতুন ছবি আপলোড
 Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছবি এবং Menu-এর উপরের ছবি আপলোড করুন। ছবি ছোট করে ব্রাউজারে সংরক্ষণ করা হয়; এই local preview-তে সেটিংস ওই ব্রাউজারেই থাকবে।
+
+
+## মোবাইল লেআউট
+ওয়েবসাইটটি Desktop Mode চালু না করেও মোবাইল Chrome-এ ব্যবহারের জন্য responsive করা হয়েছে। ছোট স্ক্রিনে বাটন, লেখা, খাবারের কার্ড, Admin navigation এবং ফর্মের মাপ স্বয়ংক্রিয়ভাবে মানিয়ে নেয়।

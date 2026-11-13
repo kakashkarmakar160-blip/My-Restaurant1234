@@ -1,2 +1,105 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Noto+Sans+Bengali:wght@400;600;700&display=swap');:root{--g:#173d32;--a:#c88b48;--bg:#faf9f5;--line:#e5e9e3;--muted:#77827b;--font:16px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#202a24;font:var(--font) 'DM Sans','Noto Sans Bengali',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:10px;background:white;padding:10px 14px;color:var(--g);font-weight:700}.hidden{display:none!important}header{height:72px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5vw}header a{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none}header small{display:block;color:var(--muted)}.logo{background:var(--g);color:white;border-radius:12px;padding:12px}nav{display:flex;gap:8px}.screen{min-height:calc(100vh - 135px);padding:35px max(5vw,18px) 60px}.hero{padding:0;display:grid;grid-template-columns:1fr 1fr;background:#f2f0e8}.photo{min-height:570px;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80') center/cover}.heroText{align-self:center;padding:8vw}.heroText small,.heading small,.menuHead small,.success>small{color:var(--a);font-weight:800;letter-spacing:.16em}.hero h1{font-size:clamp(2.5rem,5vw,4.7rem);line-height:1.05;letter-spacing:-.05em}.hero h1 em{display:block;color:var(--g);font-style:normal}.heroText p,.heading p,.menuHead p{color:var(--muted);line-height:1.7}.primary{background:var(--g);color:white;border-color:var(--g);padding:13px 20px}.primary:disabled{opacity:.4}.link{border:0;background:transparent}.heading{text-align:center;margin:10px auto 30px;max-width:700px}.heading h2,.menuHead h2{font-size:2.5rem;margin:10px 0}.steps{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.steps article,aside,.ticket{background:white;border:1px solid var(--line);border-radius:16px;padding:22px}.steps article>b{color:#b7c4ba}.steps p{color:var(--muted);font-size:.9rem;line-height:1.6}.center{text-align:center;padding:25px}.tableGrid{max-width:950px;margin:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}.tableGrid button{padding:24px}.tableGrid button.selected{border:2px solid var(--g);background:#edf4ee}.bar{position:sticky;bottom:8px;margin:28px auto 0;padding:14px;background:white;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;box-shadow:0 10px 30px #172d2015}.menuHead{display:flex;justify-content:space-between;align-items:center}.categories{display:flex;gap:8px;overflow:auto;padding:18px 0}.categories button.active{background:var(--g);color:white}.foods{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.food{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden}.food img{width:100%;height:160px;object-fit:cover;background:#eee}.food div{padding:14px}.food p{color:var(--muted);font-size:.85rem;min-height:36px}.food footer{border:0;padding:0;display:flex;align-items:center;justify-content:space-between}.old{text-decoration:line-through;color:#999;font-size:.8rem}.cartLayout{max-width:1000px;margin:auto;display:grid;grid-template-columns:1.4fr .8fr;gap:18px}.cartItem{display:flex;justify-content:space-between;align-items:center;background:white;border:1px solid var(--line);border-radius:12px;padding:15px;margin-bottom:10px}.cartItem button{padding:5px 10px}.cartLayout aside{position:sticky;top:12px}.cartLayout aside p{display:flex;justify-content:space-between;color:var(--muted)}.cartLayout aside h3{display:flex;justify-content:space-between}.notice{background:#eff4ef;padding:10px;border-radius:9px;color:var(--g)!important}.wide{width:100%;margin:5px 0}.success{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}.check{background:#e3f2e8;color:#23804d;border-radius:50%;padding:18px;font-size:2rem}.ticket{width:min(380px,100%);margin:20px;border-style:dashed}.ticket h2{color:var(--g)}footer{background:white;border-top:1px solid var(--line);padding:18px 5vw;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.8rem}.overlay{position:fixed;inset:0;background:#0009;z-index:10;display:grid;place-items:center;padding:18px}.login{position:relative;background:white;border-radius:18px;padding:30px;width:min(400px,100%)}.login input,.form input,.form select,.form textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;margin:7px 0}.x{position:absolute;right:12px;top:8px;border:0;font-size:1.5rem}.error{color:#b22}.admin{position:fixed;inset:0;background:#f5f7f4;z-index:9;display:grid;grid-template-columns:220px 1fr;overflow:auto}.admin>aside{background:var(--g);color:white;border:0;border-radius:0;display:flex;flex-direction:column;gap:12px}.admin aside nav{display:grid}.admin aside nav button,.admin aside>button{background:transparent;color:white;text-align:left;border-color:#ffffff30}.adminContent{padding:28px;overflow:auto}.adminTop{display:flex;justify-content:space-between;align-items:center}.panel{display:grid;gap:14px}.panelCard{background:white;border:1px solid var(--line);border-radius:14px;padding:18px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.form{display:grid;gap:8px;max-width:600px}.form label{font-size:.85rem;color:var(--muted)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#183c30;color:white;padding:12px 18px;border-radius:10px;z-index:20}@media(max-width:800px){.hero{grid-template-columns:1fr}.photo{min-height:260px;order:2}.heroText{padding:35px 24px}.steps{grid-template-columns:1fr 1fr}.foods{grid-template-columns:1fr 1fr}.cartLayout{grid-template-columns:1fr}.admin{grid-template-columns:1fr}.admin>aside{padding:12px}.admin aside nav{display:flex;overflow:auto}.admin aside nav button{white-space:nowrap}.adminContent{padding:15px}}@media(max-width:500px){.steps,.foods{grid-template-columns:1fr 1fr}.food img{height:115px}.food footer{align-items:flex-start;flex-direction:column}.hero h1{font-size:2.7rem}footer{flex-direction:column}.menuHead h2{font-size:2rem}}
 .logo{width:46px;height:46px;display:inline-flex;align-items:center;justify-content:center;background-position:center;background-size:cover;background-repeat:no-repeat;overflow:hidden}.logo.hasImage{font-size:0}.photo.hasCustomImage{background-position:center;background-size:cover}.menuBanner{max-width:1100px;margin:0 auto 18px;border-radius:16px;overflow:hidden}.menuBanner img{display:block;width:100%;max-height:240px;object-fit:cover}.imageSetting{display:grid;gap:8px;padding:12px 0;border-bottom:1px solid var(--line)}.imageSetting input{display:block;margin-top:8px}.settingPreview{width:min(100%,320px);max-height:150px;object-fit:contain;background:#f2f2f2;border-radius:10px;padding:4px}
+
+/* Responsive refinement: comfortable layout without forcing desktop mode */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body{overflow-x:hidden;line-height:1.5;}
+button{min-height:42px;max-width:100%;white-space:normal;line-height:1.25;}
+input,select,textarea{max-width:100%;min-width:0;}
+main,.screen,.adminContent,.panel{min-width:0;}
+.screen{width:100%;}
+.food h3,.panelCard h3,.row,.adminTop h2{overflow-wrap:anywhere;}
+.foodUploadPreview{display:block;width:min(100%,240px);max-height:180px;object-fit:cover;border-radius:12px;border:1px solid var(--line);}
+.foodUploadPreview[hidden]{display:none;}
+.requiredNote{color:#b45309;font-weight:700;}
+.mutedNote{color:var(--muted);font-size:.82rem;line-height:1.5;}
+.foodAdminRow{gap:12px;}
+.foodAdminInfo{display:flex;align-items:center;gap:10px;min-width:0;overflow-wrap:anywhere;}
+.foodAdminInfo img{width:52px;height:48px;object-fit:cover;border-radius:8px;flex:none;background:#eee;}
+.inlineForm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.inlineForm input{flex:1 1 180px;min-width:0;padding:11px;border:1px solid var(--line);border-radius:8px;}
+@media(max-width:800px){
+  header{height:auto;min-height:62px;padding:9px 16px;gap:10px;}
+  header nav{gap:6px;flex:none;}
+  header nav button{padding:8px 11px;font-size:.88rem;}
+  .screen{padding:24px 16px 36px;min-height:calc(100dvh - 120px);}
+  .hero{grid-template-columns:minmax(0,1fr);}
+  .heroText{padding:30px 22px;}
+  .hero h1{font-size:clamp(2rem,8vw,3rem);line-height:1.12;letter-spacing:-.035em;overflow-wrap:anywhere;}
+  .photo{min-height:220px;order:0;}
+  .heading h2,.menuHead h2{font-size:clamp(1.55rem,5.5vw,2.15rem);line-height:1.2;}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .foods{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .food{min-width:0;}
+  .food img{height:clamp(105px,25vw,165px);}
+  .food div{padding:11px;}
+  .food h3{font-size:1rem;line-height:1.3;margin:2px 0 6px;}
+  .food p{font-size:.82rem;min-height:0;line-height:1.45;}
+  .food footer{gap:8px;flex-wrap:wrap;align-items:center;}
+  .food footer button{padding:8px 11px;min-height:38px;}
+  .menuHead{gap:12px;align-items:flex-start;}
+  .menuHead>button{flex:none;padding:8px 10px;font-size:.84rem;}
+  .categories{max-width:100%;padding:12px 0;}
+  .categories button{flex:none;padding:8px 12px;min-height:38px;}
+  .bar{gap:10px;padding:10px;bottom:6px;}
+  .bar button{padding:9px 12px;font-size:.9rem;}
+  .cartLayout{grid-template-columns:minmax(0,1fr);}
+  .cartLayout aside{position:static;}
+  .cartItem{gap:8px;flex-wrap:wrap;}
+  .admin{display:flex;flex-direction:column;overflow:auto;}
+  .admin>aside{position:sticky;top:0;z-index:3;padding:10px 12px;gap:8px;border-radius:0;}
+  .admin>aside h2{font-size:1.15rem;margin:0;}
+  .admin aside nav{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;padding:2px 0 5px;}
+  .admin aside nav button{flex:0 0 auto;white-space:nowrap;text-align:center;padding:8px 11px;min-height:38px;font-size:.82rem;}
+  .admin aside>button{align-self:flex-start;padding:7px 11px;min-height:36px;}
+  .adminContent{padding:14px 12px 28px;overflow:visible;}
+  .adminTop{gap:10px;align-items:center;}
+  .adminTop h2{font-size:1.25rem;line-height:1.25;}
+  .panel{gap:11px;}
+  .panelCard{padding:14px;border-radius:12px;min-width:0;}
+  .form{width:100%;max-width:none;}
+  .form label{display:block;line-height:1.4;}
+  .form input,.form select,.form textarea{font-size:16px;padding:11px;}
+  .row{flex-wrap:wrap;}
+  .login{padding:25px 20px;}
+  footer{padding:14px 16px;}
+}
+@media(max-width:520px){
+  header .logo{width:40px;height:40px;flex:none;padding:8px;}
+  header a{gap:8px;min-width:0;}
+  header strong{font-size:.95rem;}
+  header small{font-size:.72rem;}
+  header nav button{font-size:.8rem;padding:7px 9px;min-height:36px;}
+  .screen{padding-left:13px;padding-right:13px;}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+  .steps article{padding:13px;border-radius:12px;}
+  .steps h3{font-size:.96rem;margin:8px 0 4px;}
+  .steps p{font-size:.78rem;line-height:1.45;}
+  .foods{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+  .food img{height:105px;}
+  .food div{padding:9px;}
+  .food h3{font-size:.9rem;}
+  .food p{font-size:.76rem;}
+  .food footer{flex-direction:column;align-items:stretch;}
+  .food footer button{width:100%;}
+  .food footer span{font-size:.9rem;}
+  .menuHead h2{font-size:1.55rem;}
+  .menuHead p{font-size:.83rem;}
+  .menuHead>button{font-size:.76rem;padding:7px 8px;}
+  .bar{left:8px;right:8px;width:auto;justify-content:space-between;}
+  .bar button{font-size:.8rem;padding:8px 9px;}
+  .adminTop h2{font-size:1.08rem;}
+  .adminTop button{font-size:.78rem;padding:8px 9px;}
+  .panelCard h3{font-size:1rem;}
+  .foodAdminRow{align-items:center;}
+  .foodAdminInfo{flex:1 1 180px;font-size:.88rem;}
+  .foodAdminInfo img{width:44px;height:42px;}
+  .cartItem{padding:11px;}
+  .ticket{margin:14px 0;}
+  .success>button{width:min(100%,320px);}
+}
+@media(min-width:801px){
+  .admin{grid-template-columns:230px minmax(0,1fr);}
+  .adminContent{min-width:0;}
+  .admin aside nav button{font-size:.9rem;}
+}
