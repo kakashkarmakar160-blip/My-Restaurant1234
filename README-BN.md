@@ -26,3 +26,20 @@ Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছব
 
 ## মোবাইল লেআউট
 ওয়েবসাইটটি Desktop Mode চালু না করেও মোবাইল Chrome-এ ব্যবহারের জন্য responsive করা হয়েছে। ছোট স্ক্রিনে বাটন, লেখা, খাবারের কার্ড, Admin navigation এবং ফর্মের মাপ স্বয়ংক্রিয়ভাবে মানিয়ে নেয়।
+
+## Supabase connected build (v5)
+
+এই ZIP-এ `supabase-config.js`-এ Project URL ও Publishable Key রাখা হয়েছে এবং `supabase-sync.js` public menu/table/settings পড়া, customer order ও order items লেখা এবং `hotel-images` Storage-এ ছবি আপলোড করার জন্য যুক্ত হয়েছে। CSV ও Bill PDF/PNG কোনো Supabase table বা bucket-এ পাঠানো হয় না।
+
+### সেটআপ
+1. `supabase-config.js`-এ দেওয়া Project URL ও Publishable Key যাচাই করুন। এখানে শুধু Publishable Key ব্যবহার করবেন; Secret/service_role key কখনো বসাবেন না।
+2. Supabase SQL Editor-এ `supabase-storage-upload-policy.sql` চালান। এটি Auth ছাড়া public image upload অনুমতি দেয়; যে কেউ bucket-এ 5 MB পর্যন্ত অনুমোদিত image upload করতে পারবে—এটি নিরাপত্তার trade-off।
+3. `index.html`, `app.js`, `styles.css`, `supabase-config.js`, `supabase-sync.js` একই folder-এ রেখে HTTPS hosting-এ publish করুন। `file://` দিয়ে খোলার বদলে hosting ব্যবহার করুন।
+4. Database-এ menu/category/table row আগে যোগ করতে হবে; website সেগুলো read করবে। Customer order ও order items Supabase-এ insert হবে।
+
+### গুরুত্বপূর্ণ সীমাবদ্ধতা ও নিরাপত্তা
+- Admin password আগের মতো browser/localStorage-এ আছে; কোনো Supabase Auth বা Edge Function যোগ করা হয়নি। তাই এই password database-কে secure করে না এবং browser code থেকে দেখা/বাইপাস করা সম্ভব।
+- এই কারণে Menu, Categories, Tables, Website Settings ও Admin order-status পরিবর্তন এখনো এই browser-এর localStorage-এ থাকে; সেগুলোর নিরাপদ cross-device admin write এই build-এ চালু করা হয়নি। তা চালু করতে server-side authorization/Auth প্রয়োজন।
+- ছবিগুলো Storage-এ আপলোড হয়, কিন্তু Menu/Settings-এর database row-তে admin পরিবর্তন এখনো cross-device sync হয় না।
+- `.env.example` কেবল reference। Static browser website সরাসরি `.env` file পড়তে পারে না; বাস্তবে `supabase-config.js` ব্যবহৃত হয়।
+- Original image file 5 MB-এর বেশি হলে upload বন্ধ হবে।
