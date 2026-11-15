@@ -59,3 +59,7 @@ Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছব
 ## Order error diagnostics (v6.1)
 
 যদি অর্ডারের মূল row তৈরি হয় কিন্তু খাবারের row তৈরি না হয়, এখন ওয়েবসাইটে Supabase-এর আসল HTTP error/body-সহ আলাদা বার্তা দেখাবে। অর্ডারের মূল তথ্য সফল হয়ে item insert ব্যর্থ হলে বার্তায় সেটিও স্পষ্ট থাকবে। এই পরিবর্তনটি ত্রুটির কারণ শনাক্ত করতে সাহায্য করে; এটি নিজে থেকে Supabase-এর অজানা schema/constraint/configuration error অনুমান করে পরিবর্তন করে না।
+
+
+## Version 6.2 — Order response fix
+এই সংস্করণে Supabase REST API থেকে খালি response এলে সেটিকে JSON হিসেবে parse করা হয় না। `Prefer: return=minimal`-এর সফল empty response এখন সঠিকভাবে গ্রহণ করা হবে, ফলে অর্ডারের মূল তথ্য সংরক্ষণের পর খাবারের item-গুলোও পাঠানোর পরের ধাপে যাবে। এই JavaScript সংশোধনের জন্য নতুন SQL চালানোর প্রয়োজন নেই; আগের SQL policies অপরিবর্তিত রাখুন। GitHub Pages-এ এই ZIP-এর সব ফাইল দিয়ে আগের ফাইলগুলো প্রতিস্থাপন করে commit/publish করুন।

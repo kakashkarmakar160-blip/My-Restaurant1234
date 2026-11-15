@@ -15,10 +15,17 @@
     });
     if (!response.ok) {
       const detail = await response.text();
-      throw new Error(`Supabase ${response.status}: ${detail}`);
+      throw new Error(`Supabase ${response.status}: ${detail || response.statusText || 'Request failed'}`);
     }
-    if (response.status === 204) return null;
-    return response.json();
+    // PostgREST may return HTTP 201 with an EMPTY body for Prefer: return=minimal.
+    // Read the body as text first; never call response.json() on an empty response.
+    const responseText = await response.text();
+    if (!responseText || !responseText.trim()) return null;
+    try {
+      return JSON.parse(responseText);
+    } catch (parseError) {
+      throw new Error(`Supabase returned a non-JSON response (${response.status}): ${responseText.slice(0, 300)}`);
+    }
   }
   async function loadPublicData() {
     const [settings, categories, tables, foods] = await Promise.all([
