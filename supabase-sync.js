@@ -36,6 +36,44 @@
     return { settings: settings?.[0] || null, categories: categories || [], tables: tables || [], foods: foods || [] };
   }
 
+  // Admin order history is fetched from Supabase, not browser localStorage.
+  async function loadOrders() {
+    const [orders, items] = await Promise.all([
+      request('restaurant_orders?select=*&order=created_at.desc'),
+      request('restaurant_order_items?select=*&order=id.asc')
+    ]);
+    const byOrder = new Map();
+    for (const item of (items || [])) {
+      const list = byOrder.get(item.order_id) || [];
+      list.push({
+        name: item.item_name, qty: Number(item.quantity || 0),
+        price: Number(item.unit_price || 0),
+        off: Number(item.discount_percent || 0),
+        amount: Number(item.line_total || 0)
+      });
+      byOrder.set(item.order_id, list);
+    }
+    return (orders || []).map(order => ({
+      id: order.order_number || order.id,
+      _dbId: order.id,
+      date: order.created_at,
+      table: order.table_label || '',
+      total: Number(order.grand_total || 0),
+      sub: Number(order.subtotal || 0),
+      discount: Number(order.discount_total || 0),
+      items: byOrder.get(order.id) || [],
+      status: order.status || 'Pending'
+    }));
+  }
+
+  async function updateOrderStatus(id, status) {
+    if (!id) throw new Error('Order database ID is missing.');
+    await request(`restaurant_orders?id=eq.${encodeURIComponent(id)}`, {
+      method: 'PATCH', headers: { ...jsonHeaders, Prefer: 'return=minimal' },
+      body: JSON.stringify({ status })
+    });
+  }
+
   async function uploadImage(dataUrl, originalName = 'image.jpg') {
     const blob = await (await fetch(dataUrl)).blob();
     if (blob.size > cfg.maxImageBytes) throw new Error('Image exceeds 5 MB.');
@@ -103,6 +141,14 @@
     });
     if (!rows?.[0]?.id) throw new Error('Food item was not returned by Supabase.');
     return { ...food, id: rows[0].id };
+  }
+
+  async function updateFoodImage(id, imageUrl) {
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(id))) return;
+    await request(`food_items?id=eq.${encodeURIComponent(id)}`, {
+      method: 'PATCH', headers: { ...jsonHeaders, Prefer: 'return=minimal' },
+      body: JSON.stringify({ image_url: imageUrl })
+    });
   }
 
   async function deleteFood(id) {
@@ -185,6 +231,6 @@
     return orderId;
   }
 
-  window.MyHotelCloud = { loadPublicData, initialize, createOrder, uploadImage, saveSettings,
-    addCategory, addFood, deleteFood, setFoodToday, addTable, setTableEnabled };
+  window.MyHotelCloud = { loadPublicData, loadOrders, updateOrderStatus, initialize, createOrder, uploadImage, saveSettings,
+    addCategory, addFood, updateFoodImage, deleteFood, setFoodToday, addTable, setTableEnabled };
 })();

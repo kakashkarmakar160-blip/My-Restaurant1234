@@ -74,3 +74,12 @@ Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছব
 5. `hotel_settings`-এ লেখা ও image URL থাকবে। ছবির আসল ফাইল `hotel-images` Storage bucket-এ থাকবে; Database-এ ছবির URL রাখা হবে।
 
 **গুরুত্বপূর্ণ নিরাপত্তা:** আপনি Supabase Auth ও Edge Function ব্যবহার করতে চান না বলে এই SQL-এ `anon`-কে Settings, Categories, Tables ও Food Items-এ INSERT/UPDATE/DELETE অনুমতি দেওয়া হয়েছে। ফলে ওয়েবসাইটের Admin Password শুধু browser-side বাধা; এটি Database-কে অননুমোদিত পরিবর্তন থেকে নিরাপদ রাখে না। Publish করার আগে এই ঝুঁকি বুঝে নিন। CSV/PDF bill ফাইল Database বা Storage-এ আপলোড হয় না; সেগুলি ব্যবহারকারীর ডিভাইসে ডাউনলোড হয়।
+
+
+## Version 6.4 — Admin Order History ও পুরোনো ছবি Sync
+
+- Admin → Orders এবং Reports এখন Supabase `restaurant_orders` ও `restaurant_order_items` থেকে তথ্য লোড করে। Orders প্যানেলে Refresh orders আছে। Status পরিবর্তন Supabase-এ PATCH হয়।
+- এই কাজের জন্য `supabase-order-admin-read-policy.sql` SQL Editor-এ একবার Run করতে হবে। এতে anon ব্যবহারকারী order history পড়তে এবং order status update করতে পারবে। Supabase Auth/Edge Function ছাড়া password-only Admin-কে database-এ আলাদা করে সুরক্ষিত করা যায় না; তাই এই তথ্য public API দিয়ে পড়া/পরিবর্তনযোগ্য হবে।
+- আগের browser localStorage-এ থাকা data:image ছবি থাকলে নতুন version সেগুলো Storage-এ স্থানান্তর করার চেষ্টা করে; Food image URL `food_items.image_url`-এ এবং Settings image URL `hotel_settings`-এ সেভ করে। যে ছবি শুধু অন্য ডিভাইসে বা মুছে যাওয়া browser data-তে ছিল, সেটি আবার upload করতে হবে।
+- `hotel-images` bucket Public থাকতে হবে এবং `supabase-storage-upload-policy.sql` upload policy চালানো থাকতে হবে। Public bucket-এর public URL দিয়েই ছবি দেখানো হয়।
+- CSV/PDF bill এখনও local device-এ download হয়; Supabase-এ সংরক্ষণ করা হয় না।
