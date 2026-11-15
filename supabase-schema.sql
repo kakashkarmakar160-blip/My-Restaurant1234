@@ -1,4 +1,4 @@
--- My Hotel backend starter schema (not yet connected to this ZIP frontend)
+-- My Hotel base schema. Run supabase-admin-data-policies.sql after this file for admin data persistence.
 create extension if not exists pgcrypto;
 create table if not exists public.hotel_settings(id boolean primary key default true check(id),hotel_name text not null default 'My Hotel',tagline text,welcome_message text,phone text,address text,updated_at timestamptz default now());
 create table if not exists public.food_categories(id uuid primary key default gen_random_uuid(),name text unique not null,enabled boolean default true);

@@ -15,13 +15,13 @@ Hotel name, tagline, welcome text, logo text, phone, address, accent colour and 
 Extract ZIP and open `index.html` in Chrome. Browser localStorage stores demo data.
 
 ## Important
-This is a LOCAL PREVIEW starter, not a production multi-device system. Orders/settings/password are saved only in the current browser. The included `supabase-schema.sql` is a database foundation only; this frontend is not connected to Supabase, realtime or secure server-side authentication/order processing. A public launch requires secure server-side order creation, admin authorization, realtime updates, HTTPS hosting and tested bill generation. Do not use this browser-only password gate for real public admin security. Never place Supabase service_role keys in frontend code.
+This is a static browser website connected to Supabase REST for public menu/settings/tables and customer order inserts. The Admin password remains browser/localStorage-only; it is not secure server-side authentication. A public launch requires secure server-side order creation, admin authorization, realtime updates, HTTPS hosting and tested bill generation. Do not use this browser-only password gate for real public admin security. Never place Supabase service_role keys in frontend code.
 
 Bill buttons open the browser print dialog; choose Save as PDF. The image/PNG button opens the same print view; use a screenshot for PNG. Proper one-click PNG/PDF generation should be added in a production-connected build. GST/tax is not included and must be configured if applicable.
 
 
 ## নতুন ছবি আপলোড
-Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছবি এবং Menu-এর উপরের ছবি আপলোড করুন। ছবি ছোট করে ব্রাউজারে সংরক্ষণ করা হয়; এই local preview-তে সেটিংস ওই ব্রাউজারেই থাকবে।
+Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছবি এবং Menu-এর উপরের ছবি আপলোড করুন। ছবির আসল ফাইল `hotel-images` Storage bucket-এ থাকবে; তার public URL `hotel_settings` টেবিলে সংরক্ষিত হবে।
 
 
 ## মোবাইল লেআউট
@@ -63,3 +63,14 @@ Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছব
 
 ## Version 6.2 — Order response fix
 এই সংস্করণে Supabase REST API থেকে খালি response এলে সেটিকে JSON হিসেবে parse করা হয় না। `Prefer: return=minimal`-এর সফল empty response এখন সঠিকভাবে গ্রহণ করা হবে, ফলে অর্ডারের মূল তথ্য সংরক্ষণের পর খাবারের item-গুলোও পাঠানোর পরের ধাপে যাবে। এই JavaScript সংশোধনের জন্য নতুন SQL চালানোর প্রয়োজন নেই; আগের SQL policies অপরিবর্তিত রাখুন। GitHub Pages-এ এই ZIP-এর সব ফাইল দিয়ে আগের ফাইলগুলো প্রতিস্থাপন করে commit/publish করুন।
+
+
+## Version 6.3 — Settings, Menu, Tables ও ছবি Database-এ সংরক্ষণ
+
+1. Supabase SQL Editor-এ `supabase-admin-data-policies.sql` সম্পূর্ণ কপি করে Run করুন। `Success. No rows returned` এলে SQL সম্পন্ন।
+2. Version 6.3-এর সব ফাইল GitHub Pages repository-তে আপলোড/replace করে Commit করুন।
+3. ওয়েবসাইট hard refresh করে Admin → Settings-এ গিয়ে Save করুন।
+4. নতুন Food/Category/Table যোগ করে Supabase Table Editor-এ `food_items`, `food_categories`, `restaurant_tables` দেখুন।
+5. `hotel_settings`-এ লেখা ও image URL থাকবে। ছবির আসল ফাইল `hotel-images` Storage bucket-এ থাকবে; Database-এ ছবির URL রাখা হবে।
+
+**গুরুত্বপূর্ণ নিরাপত্তা:** আপনি Supabase Auth ও Edge Function ব্যবহার করতে চান না বলে এই SQL-এ `anon`-কে Settings, Categories, Tables ও Food Items-এ INSERT/UPDATE/DELETE অনুমতি দেওয়া হয়েছে। ফলে ওয়েবসাইটের Admin Password শুধু browser-side বাধা; এটি Database-কে অননুমোদিত পরিবর্তন থেকে নিরাপদ রাখে না। Publish করার আগে এই ঝুঁকি বুঝে নিন। CSV/PDF bill ফাইল Database বা Storage-এ আপলোড হয় না; সেগুলি ব্যবহারকারীর ডিভাইসে ডাউনলোড হয়।
