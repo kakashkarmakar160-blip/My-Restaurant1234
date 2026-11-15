@@ -42,10 +42,19 @@
     return `${cfg.url.replace(/\/$/, '')}/storage/v1/object/public/${cfg.imageBucket}/${path}`;
   }
   async function createOrder(order) {
-    const created = await request('restaurant_orders?select=id', {
+    // Generate the UUID in the browser so the insert does not need SELECT access
+    // to the orders table (which would expose all customer orders publicly).
+    const orderId = (window.crypto && typeof window.crypto.randomUUID === 'function')
+      ? window.crypto.randomUUID()
+      : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+          const r = Math.random() * 16 | 0;
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    await request('restaurant_orders', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Prefer: 'return=representation' },
+      headers: { 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify({
+        id: orderId,
         order_number: order.id,
         table_label: order.table,
         status: 'Pending',
@@ -55,8 +64,6 @@
         grand_total: order.total
       })
     });
-    const orderId = created?.[0]?.id;
-    if (!orderId) throw new Error('Supabase did not return the new order ID.');
     const rows = order.items.map(item => ({
       order_id: orderId,
       item_name: item.name,

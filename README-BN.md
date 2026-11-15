@@ -43,3 +43,14 @@ Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছব
 - ছবিগুলো Storage-এ আপলোড হয়, কিন্তু Menu/Settings-এর database row-তে admin পরিবর্তন এখনো cross-device sync হয় না।
 - `.env.example` কেবল reference। Static browser website সরাসরি `.env` file পড়তে পারে না; বাস্তবে `supabase-config.js` ব্যবহৃত হয়।
 - Original image file 5 MB-এর বেশি হলে upload বন্ধ হবে।
+
+
+## অর্ডার Database-এ সংরক্ষণের Policy (গুরুত্বপূর্ণ)
+1. Supabase → SQL Editor খুলুন।
+2. ZIP-এর `supabase-order-insert-policy.sql` ফাইলের সম্পূর্ণ কোড কপি করে Run করুন।
+3. `Success. No rows returned` এলে Policy তৈরি হয়েছে।
+4. ওয়েবসাইট নতুন করে আপলোড/Deploy করে একটি পরীক্ষামূলক অর্ডার দিন।
+
+এই আপডেটে অর্ডারের UUID ব্রাউজারেই তৈরি হয় এবং `return=minimal` ব্যবহার করে; ফলে অর্ডার জমা দিতে সব অর্ডারের SELECT অনুমতি দিতে হয় না।
+
+**নিরাপত্তা নোট:** Authentication/Edge Function ছাড়া anonymous গ্রাহককে অর্ডার INSERT করতে দেওয়া হচ্ছে। ফলে যে কেউ public website key ব্যবহার করে অর্ডার জমা দিতে পারে। Admin password browser-এর ভিতরে থাকায় এটি database-কে নিরাপদে Admin-only করতে পারে না। কোনো service_role/secret key কখনো ওয়েবসাইটে বসাবেন না।
