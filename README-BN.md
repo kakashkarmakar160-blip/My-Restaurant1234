@@ -54,3 +54,8 @@ Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছব
 এই আপডেটে অর্ডারের UUID ব্রাউজারেই তৈরি হয় এবং `return=minimal` ব্যবহার করে; ফলে অর্ডার জমা দিতে সব অর্ডারের SELECT অনুমতি দিতে হয় না।
 
 **নিরাপত্তা নোট:** Authentication/Edge Function ছাড়া anonymous গ্রাহককে অর্ডার INSERT করতে দেওয়া হচ্ছে। ফলে যে কেউ public website key ব্যবহার করে অর্ডার জমা দিতে পারে। Admin password browser-এর ভিতরে থাকায় এটি database-কে নিরাপদে Admin-only করতে পারে না। কোনো service_role/secret key কখনো ওয়েবসাইটে বসাবেন না।
+
+
+## Order error diagnostics (v6.1)
+
+যদি অর্ডারের মূল row তৈরি হয় কিন্তু খাবারের row তৈরি না হয়, এখন ওয়েবসাইটে Supabase-এর আসল HTTP error/body-সহ আলাদা বার্তা দেখাবে। অর্ডারের মূল তথ্য সফল হয়ে item insert ব্যর্থ হলে বার্তায় সেটিও স্পষ্ট থাকবে। এই পরিবর্তনটি ত্রুটির কারণ শনাক্ত করতে সাহায্য করে; এটি নিজে থেকে Supabase-এর অজানা schema/constraint/configuration error অনুমান করে পরিবর্তন করে না।

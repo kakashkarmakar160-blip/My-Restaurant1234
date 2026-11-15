@@ -50,20 +50,24 @@
           const r = Math.random() * 16 | 0;
           return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
-    await request('restaurant_orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-      body: JSON.stringify({
-        id: orderId,
-        order_number: order.id,
-        table_label: order.table,
-        status: 'Pending',
-        payment_method: 'Cash at Counter',
-        subtotal: order.sub,
-        discount_total: order.discount,
-        grand_total: order.total
-      })
-    });
+    try {
+      await request('restaurant_orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify({
+          id: orderId,
+          order_number: order.id,
+          table_label: order.table,
+          status: 'Pending',
+          payment_method: 'Cash at Counter',
+          subtotal: order.sub,
+          discount_total: order.discount,
+          grand_total: order.total
+        })
+      });
+    } catch (err) {
+      throw new Error(`অর্ডারের মূল তথ্য restaurant_orders-এ সংরক্ষণ হয়নি। ${err.message}`);
+    }
     const rows = order.items.map(item => ({
       order_id: orderId,
       item_name: item.name,
@@ -72,11 +76,15 @@
       quantity: item.qty,
       line_total: item.amount
     }));
-    await request('restaurant_order_items', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-      body: JSON.stringify(rows)
-    });
+    try {
+      await request('restaurant_order_items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify(rows)
+      });
+    } catch (err) {
+      throw new Error(`অর্ডারের মূল তথ্য সংরক্ষিত হয়েছে (Order ID: ${orderId}), কিন্তু খাবারের তালিকা restaurant_order_items-এ সংরক্ষণ হয়নি। Supabase-এর আসল ত্রুটি: ${err.message}`);
+    }
     return orderId;
   }
   window.MyHotelCloud = { loadPublicData, createOrder, uploadImage };
