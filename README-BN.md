@@ -83,3 +83,14 @@ Admin → Website Settings থেকে Hotel Logo, Welcome screen-এর ছব
 - আগের browser localStorage-এ থাকা data:image ছবি থাকলে নতুন version সেগুলো Storage-এ স্থানান্তর করার চেষ্টা করে; Food image URL `food_items.image_url`-এ এবং Settings image URL `hotel_settings`-এ সেভ করে। যে ছবি শুধু অন্য ডিভাইসে বা মুছে যাওয়া browser data-তে ছিল, সেটি আবার upload করতে হবে।
 - `hotel-images` bucket Public থাকতে হবে এবং `supabase-storage-upload-policy.sql` upload policy চালানো থাকতে হবে। Public bucket-এর public URL দিয়েই ছবি দেখানো হয়।
 - CSV/PDF bill এখনও local device-এ download হয়; Supabase-এ সংরক্ষণ করা হয় না।
+
+
+## নতুন ফিচার: ৫০০ মিটার GPS Location Restriction (v6.5)
+
+1. Supabase Dashboard → SQL Editor খুলে `supabase-location-restriction.sql` ফাইলের SQL কোড Run করুন।
+2. ওয়েবসাইটের Admin → Settings → Order Location Restriction-এ যান।
+3. হোটেলের Latitude ও Longitude লিখুন। Google Maps-এ হোটেলের জায়গায় চাপ দিলে Coordinates দেখা যায়।
+4. Allowed Radius ডিফল্ট 500 Meter রাখুন এবং Save Location Settings চাপুন।
+5. গ্রাহক অর্ডার Confirm করার সময় ফোনের Location Permission Allow করবে। GPS দূরত্ব 500 মিটারের বেশি হলে অর্ডার জমা হবে না।
+
+**গুরুত্বপূর্ণ:** ব্রাউজারের GPS Location সাধারণত HTTPS ওয়েবসাইটে কাজ করে। গ্রাহকের ফোনে Location চালু থাকতে হবে। এই ওয়েবসাইটের বর্তমান Supabase anon/RLS ব্যবস্থা ব্যবহার করে যাচাইটি ব্রাউজারে হয়; প্রযুক্তিগতভাবে পরিবর্তিত ক্লায়েন্ট বা সরাসরি Supabase API কল দিয়ে কেউ এই সীমা এড়িয়ে যেতে পারে। সার্ভার-সাইডে শতভাগ বাধ্যতামূলক করতে ভবিষ্যতে নিরাপদ backend validation প্রয়োজন হবে।

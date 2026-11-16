@@ -104,7 +104,10 @@
       welcome_image_url: s.welcomeImage || null,
       menu_image_url: s.menuImage || null,
       accent_color: s.accent || '#c88b48',
-      font_size: Number(s.font || 16)
+      font_size: Number(s.font || 16),
+      location_latitude: s.locationLat === '' || s.locationLat == null ? null : Number(s.locationLat),
+      location_longitude: s.locationLng === '' || s.locationLng == null ? null : Number(s.locationLng),
+      delivery_radius_meters: Number(s.deliveryRadius || 500)
     };
     await request('hotel_settings?on_conflict=id', {
       method: 'POST', headers: { ...jsonHeaders, Prefer: 'resolution=merge-duplicates,return=minimal' },
